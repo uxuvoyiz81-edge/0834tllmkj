@@ -1,6 +1,9 @@
 name: Deploy Worker Script
 
 on:
+  workflow_dispatch:
+  # 下面可能还有你原本的其他配置，比如 push: 等
+
   push:
     tags:
       - '*'  # 当任何标签被推送时触发
