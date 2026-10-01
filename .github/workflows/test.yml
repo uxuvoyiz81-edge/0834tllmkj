@@ -43,20 +43,12 @@ jobs:
         run: |
           zip Pages.zip _worker.js
           echo "成功将 '_worker.js' 压缩为 'Pages.zip'"
-      
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
-        with:- name: Create GitHub Release
-  uses: softprops/action-gh-release@v1
-  with:
-    tag_name: "v1.0.0"  # 👈 加上这一行！指定一个合法的 Tag 名称（比如 v1.0.0 或 latest）
-    # 如果希望每次运行版本号自动递增，也可以写成：
-    # tag_name: "v1.0.${{ github.run_number }}"
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-          tag_name: ${{ steps.get_tag.outputs.tag_name }}
-          name: Pages ${{ steps.get_tag.outputs.tag_name }}
+        with:
+          tag_name: "v1.0.0"
+          name: Pages v1.0.0
           body: |
             代码重构支持明文部署
           draft: false
@@ -64,12 +56,12 @@ jobs:
           files: Pages.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: Output summary
         run: |
           echo "## 部署完成" >> $GITHUB_STEP_SUMMARY
-          echo "- 源文件: 明文源吗" >> $GITHUB_STEP_SUMMARY
-          echo "- 目标文件: _worker.js" >> $GITHUB_STEP_SUMMARY
-          echo "- 压缩文件: Pages.zip" >> $GITHUB_STEP_SUMMARY
-          echo "- 标签: ${{ steps.get_tag.outputs.tag_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- 源文件：明文源码" >> $GITHUB_STEP_SUMMARY
+          echo "- 目标文件：_worker.js" >> $GITHUB_STEP_SUMMARY
+          echo "- 压缩文件：Pages.zip" >> $GITHUB_STEP_SUMMARY
+          echo "- 标签：v1.0.0" >> $GITHUB_STEP_SUMMARY
           echo "- GitHub Release 已创建" >> $GITHUB_STEP_SUMMARY
